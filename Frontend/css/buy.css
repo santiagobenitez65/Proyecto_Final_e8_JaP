@@ -1,0 +1,124 @@
+body {
+    background-color: var(--main-bg-color);
+    color: var(--text-color);
+}
+
+main {
+    height: 100%;
+}
+
+.mattress {
+    background-color: var(--mattress);
+    height: 100%;
+    min-height: 100dvh;
+    width: 60%;
+    margin: auto;
+    padding-top: 5px;
+    padding-bottom: 1em;
+}
+
+.title,
+.subtitle {
+    text-align: center;
+
+}
+
+.subtitle {
+    margin-top: 1em;
+}
+
+.contenedor {
+    width: fit-content;
+    margin-inline: auto;
+    display: flex;
+    gap: 1em;
+    margin-top: 2em;
+}
+
+input {
+    background-color: var(--secondary-bg-color);
+    border: none;
+    color: var(--text-color);
+    border-radius: 5px;
+    box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2);
+}
+
+.costos {
+    background-color: var(--secondary-bg-color);
+    width: 50%;
+    margin: auto;
+    min-height: 15em;
+    border-radius: 5px;
+}
+
+select {
+    background-color: var(--secondary-bg-color);
+    color: var(--text-color);
+    border-radius: 5px;
+}
+
+#datos {
+    flex-direction: column;
+}
+
+#confirmar,
+#cancelar {
+    height: 40px;
+    width: 10em;
+    border-radius: 6px;
+    color: white;
+    font-weight: bold;
+    border: none;
+
+}
+
+#confirmar {
+    background-color: var(--main-color);
+    box-shadow: 0 0 5px var(--main-color);
+}
+
+#cancelar {
+    background-color: red;
+    box-shadow: 0 0 5px red;
+}
+
+.botones {
+    width: 50%;
+    justify-content: space-between;
+}
+
+.subtotal,
+.costo-envio,
+.total {
+    margin-left: 5%;
+}
+
+footer {
+    width: 100%;
+    background: #212529;
+    padding: 1em;
+    text-align: center;
+    color: #C8CDD0;
+}
+
+@media (max-width: 768px) {
+    .mattress {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .contenedor {
+        flex-direction: column;
+    }
+
+    .subtotal,
+    .costo-envio,
+    .total {
+        margin-left: 2em;
+    }
+
+    .botones {
+        gap: 1em
+    }
+}
