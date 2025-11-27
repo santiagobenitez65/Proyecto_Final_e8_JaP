@@ -6,8 +6,8 @@ const port = 3000;
 const JWT = require("jsonwebtoken");
 const SECRET_KEY = "CLAVE-SECRETA";
 
-const productsController = require("./controllers/productsController");
-const productsRouter = require("./routes/productsRoute")
+const productsRouter = require("./routes/productsRoute");
+const catsRouter = require("./routes/catsRoute")
 
 app.use(express.json());
 app.use(cors());
@@ -25,6 +25,8 @@ app.use("/login", (req, res) => {
         res.status(401).json({ message: "Usuario y/o contraseña incorrecto." });
     }
 });
+
+app.use("/cats", catsRouter)
 
 app.use("/products", productsRouter);
 
