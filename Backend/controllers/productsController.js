@@ -1,10 +1,15 @@
 const model = require("../models/productsModel");
 
 async function getProducts(req, res) {
-    const products = await model.getProducts(req.body.cat);
-    console.log("CONTROLLER DATA:" + products);
-    if (!products) console.log("Error!");
-    res.json(products);
+    await model.getProducts(req.body.cat)
+        .then((response) => {
+            console.log(response);
+            if (!response.ok) throw new Error(response.data);
+            res.json(response.data);
+        })
+        .catch((error) => {
+            res.json(error.data);
+        })
 }
 
 module.exports = {
