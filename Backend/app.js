@@ -4,9 +4,10 @@ const cors = require("cors");
 const app = express();
 const port = 3000;
 const JWT = require("jsonwebtoken");
-const SECRET_KEY = "CLAVE-SECRETA"
+const SECRET_KEY = "CLAVE-SECRETA";
 
-const productsController = require("./controllers/productsController")
+const productsController = require("./controllers/productsController");
+const productsRouter = require("./routes/productsRoute")
 
 app.use(express.json());
 app.use(cors());
@@ -25,7 +26,9 @@ app.use("/login", (req, res) => {
     }
 });
 
-app.get("/products", productsController.getProducts)
+app.use("/products", productsRouter)
+
+/* app.get("/products", productsController.getProducts) */
 
 app.listen(3000, () => {
     console.log("funciona!!!!")

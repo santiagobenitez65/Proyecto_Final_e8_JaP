@@ -1,8 +1,9 @@
 const model = require("../models/productsModel");
 
-function getProducts(req, res) {
-    const products = model.getProducts();
-    if (!products) return false;
+async function getProducts(req, res) {
+    const products = await model.getProducts(req.body.cat);
+    console.log("CONTROLLER DATA:" + products);
+    if (!products) console.log("Error!");
     res.json(products);
 }
 

@@ -1,32 +1,18 @@
 const fs = require("fs");
 
-async function getProducts() {
-    let products = "";
-    fs.readdir("./json/products", (err, files) => {
-        files.forEach((file, index) => {
-            try {
-                fs.readFile(file, (err, data) => {
-                    if (err) return false;
-                    console.log(data);
-                    products += data;
-                })
-
-            } catch (error) {
-                console.error(error);
-                return false;
-            }
-        })
+async function getProducts(cat) {
+    return new Promise((resolve, reject) => {
+        try {
+            fs.readFile(`./json/cats_products/${cat}.json`, (err, data) => {
+                if (err) return reject(err);
+                console.log("MODEL DATA: " + data);
+                return resolve(JSON.parse(data));
+            })
+        } catch (error) {
+            console.error("EINVALIDCAT");
+            return reject(false);
+        }
     })
-
-    console.log(products);
-
-    try {
-        let data = JSON.parse(products);
-        return data;
-    } catch (error) {
-        console.error(error);
-        return false;
-    }
 }
 
 module.exports = {
