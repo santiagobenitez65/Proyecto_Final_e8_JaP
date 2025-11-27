@@ -26,9 +26,7 @@ app.use("/login", (req, res) => {
     }
 });
 
-app.use("/products", productsRouter)
-
-/* app.get("/products", productsController.getProducts) */
+app.use("/products", productsRouter);
 
 app.listen(3000, () => {
     console.log("funciona!!!!")
