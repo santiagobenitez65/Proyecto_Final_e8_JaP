@@ -166,12 +166,15 @@ document.addEventListener("DOMContentLoaded", function () {
 function showComments(commentsArray) { //Crea las tarjetas de los comentarios
     let htmlContent = "";
 
+    const nameUser = localStorage.getItem("name").toLowerCase();
+    const lastnameUser = localStorage.getItem("lastname").toLowerCase();
+
     for (let comment of commentsArray) {
         let estrellas = "★".repeat(comment.score) + "☆".repeat(5 - comment.score);
 
         htmlContent += `
           <div class="comentario">
-            <p><strong>${comment.user}</strong> - <span class="fecha">${comment.dateTime}</span></p>
+            <p><strong>${comment.user || `${nameUser}_${lastnameUser}`}</strong> - <span class="fecha">${comment.dateTime}</span></p>
             <p class="texto">${comment.description}</p>
             <div class="estrellas">${estrellas}</div>
           </div>
