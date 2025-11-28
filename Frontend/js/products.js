@@ -68,7 +68,7 @@ function toggleHeartSelection(id) {
 document.addEventListener("DOMContentLoaded", function () {
     const titulo = document.getElementById("titulo")
     const resultados = document.getElementById("resultados")
-    let url = `https://japceibal.github.io/emercado-api/cats_products/${localStorage.getItem("catID")}.json`
+    let url = `http://localhost:3000/products/${localStorage.getItem("catID")}`
     fetchInfo(url).then(result => {
         console.log(result)
         let productos = result.products; //ordenar esta lista antes de darsela a showItemCards()
@@ -86,7 +86,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const botonLimpiar = document.getElementById("limpiar");
 
     let productos = [];
-    let url = `https://japceibal.github.io/emercado-api/cats_products/${localStorage.getItem("catID")}.json`
+    let url = `http://localhost:3000/products/${localStorage.getItem("catID")}`
 
     fetchInfo(url).then(result => {
         productos = result.products;
@@ -118,7 +118,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //*Orden de los productos*//
 let productos = [];
-let url = `https://japceibal.github.io/emercado-api/cats_products/${localStorage.getItem("catID")}.json`
+let url = `http://localhost:3000/products/${localStorage.getItem("catID")}`
 
 fetchInfo(url).then(result => {
     productos = result.products;
