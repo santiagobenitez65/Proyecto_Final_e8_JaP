@@ -8,7 +8,8 @@ const SECRET_KEY = "CLAVE-SECRETA";
 
 const productsRouter = require("./routes/productsRoute");
 const catsRouter = require("./routes/catsRoute");
-const productInfoRouter = require("./routes/productInfoRoute")
+const productInfoRouter = require("./routes/productInfoRoute");
+const commentsRouter = require("./routes/commentsRoute");
 
 app.use(express.json());
 app.use(cors());
@@ -32,6 +33,8 @@ app.use("/cats", catsRouter)
 app.use("/products", productsRouter);
 
 app.use("/product-info", productInfoRouter);
+
+app.use("/comments", commentsRouter);
 
 app.listen(3000, () => {
     console.log("funciona!!!!")

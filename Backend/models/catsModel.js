@@ -2,18 +2,14 @@ const fs = require("fs")
 
 async function getCats() {
     return new Promise((resolve, reject) => {
-        const response = {
-            ok: true,
-            data: {}
-        }
+        let response;
 
         fs.readFile("./json/cats/cat.json", (err, data) => {
             if (err) {
-                response.ok = false;
-                response.data = err;
+                response = err;
                 return reject(response);
             }
-            response.data = JSON.parse(data);
+            response = JSON.parse(data);
             return resolve(response);
         })
     })

@@ -1,12 +1,11 @@
 const fs = require("fs");
 
-async function getProductInfo(id) {
+async function getComments(prod) {
     return new Promise((resolve, reject) => {
         let response;
-
-        fs.readFile(`./json/products/${id}.json`, (err, data) => {
+        fs.readFile(`./json/products_comments/${prod}.json`, (err, data) => {
             if (err) {
-                response = "ID Invalida";
+                response = "Producto inválido";
                 return reject(response);
             }
 
@@ -17,5 +16,5 @@ async function getProductInfo(id) {
 }
 
 module.exports = {
-    getProductInfo,
+    getComments,
 }
