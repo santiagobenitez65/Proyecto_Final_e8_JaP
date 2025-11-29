@@ -9,7 +9,12 @@ const port = 3000;
 
 const SECRET_KEY = "CLAVE-SECRETA"
 
-const productsController = require("./controllers/productsController")
+const catsRouter = require("./routes/catsRoute");
+const commentsRouter = require("./routes/commentsRoute");
+const productInfoRouter = require("./routes/productInfoRoute");
+const productsRouter = require("./routes/productsRoute");
+const cartRouter = require("./routes/cartRoute");
+const sellRouter = require("./routes/sellRoute")
 
 app.use(express.json());
 app.use(cors());
@@ -17,16 +22,16 @@ app.use(express.static(path.join(__dirname, "..", "Frontend")));
 
 
 app.get("/", (req, res) => {
-    res.send("<h1>Bienvenido al server!</h1>")
+  res.send("<h1>Bienvenido al server!</h1>")
 });
 
 app.get("/login", (req, res) => {
-    res.sendFile(path.join(__dirname, "..", "Frontend", "login.html"));
+  res.sendFile(path.join(__dirname, "..", "Frontend", "login.html"));
 })
 
 /* Login. Usuario: admin@gmail.com Contraseña: 1234 */
 app.post("/login", (req, res) => {
-  console.log("BODY /login ->", req.body); 
+  console.log("BODY /login ->", req.body);
   const { mail, password } = req.body;
 
   if (mail === "admin@gmail.com" && password === "1234") {
@@ -37,9 +42,19 @@ app.post("/login", (req, res) => {
   }
 });
 
-app.get("/products", authMiddleware, productsController.getProducts)
+app.use("/cats", authMiddleware, catsRouter);
+
+app.use("/products", authMiddleware, productsRouter);
+
+app.use("/product-info", authMiddleware, productInfoRouter);
+
+app.use("/comments", authMiddleware, commentsRouter);
+
+app.use("/cart", authMiddleware, cartRouter);
+
+app.use("/sell", authMiddleware, sellRouter);
 
 app.listen(port, () => {
-    console.log(`Server corriendo en http://localhost:${port}`)
+  console.log(`Server corriendo en http://localhost:${port}`)
 });
 
