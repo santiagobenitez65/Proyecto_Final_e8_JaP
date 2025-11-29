@@ -13,7 +13,8 @@ const catsRouter = require("./routes/catsRoute");
 const commentsRouter = require("./routes/commentsRoute");
 const productInfoRouter = require("./routes/productInfoRoute");
 const productsRouter = require("./routes/productsRoute");
-const cartRouter = require("./routes/cartRoute")
+const cartRouter = require("./routes/cartRoute");
+const sellRouter = require("./routes/sellRoute")
 
 app.use(express.json());
 app.use(cors());
@@ -50,6 +51,8 @@ app.use("/product-info", authMiddleware, productInfoRouter);
 app.use("/comments", authMiddleware, commentsRouter);
 
 app.use("/cart", authMiddleware, cartRouter);
+
+app.use("/sell", sellRouter);
 
 app.listen(port, () => {
   console.log(`Server corriendo en http://localhost:${port}`)
