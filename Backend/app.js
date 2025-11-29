@@ -52,7 +52,7 @@ app.use("/comments", authMiddleware, commentsRouter);
 
 app.use("/cart", authMiddleware, cartRouter);
 
-app.use("/sell", sellRouter);
+app.use("/sell", authMiddleware, sellRouter);
 
 app.listen(port, () => {
   console.log(`Server corriendo en http://localhost:${port}`)
