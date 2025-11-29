@@ -1,31 +1,44 @@
 
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
+const authMiddleware = require("./authMiddleware")
+const jwt = require("jsonwebtoken");
 const app = express();
 const port = 3000;
-const JWT = require("jsonwebtoken");
-const SECRET_KEY = "CLAVE-SECRETA";
 
 const productsRouter = require("./routes/productsRoute");
 const catsRouter = require("./routes/catsRoute");
 const productInfoRouter = require("./routes/productInfoRoute");
 const commentsRouter = require("./routes/commentsRoute");
+const SECRET_KEY = "CLAVE-SECRETA"
+
+const productsController = require("./controllers/productsController")
 
 app.use(express.json());
 app.use(cors());
+app.use(express.static(path.join(__dirname, "..", "Frontend")));
+
 
 app.get("/", (req, res) => {
-    res.send("<h1>Funciona</h1>")
+  res.send("<h1>Bienvenido al server!</h1>")
 });
 
-app.use("/login", (req, res) => {
-    const { mail, password } = req.body;
-    if (mail === "admin@gmail.com" && password === "1234") {
-        const token = jwt.sign({ mail }, SECRET_KEY);
-        res.status(200).json({ token });
-    } else {
-        res.status(401).json({ message: "Usuario y/o contraseña incorrecto." });
-    }
+app.get("/login", (req, res) => {
+  res.sendFile(path.join(__dirname, "..", "Frontend", "login.html"));
+})
+
+/* Login. Usuario: admin@gmail.com Contraseña: 1234 */
+app.post("/login", (req, res) => {
+  console.log("BODY /login ->", req.body);
+  const { mail, password } = req.body;
+
+  if (mail === "admin@gmail.com" && password === "1234") {
+    const token = jwt.sign({ mail }, SECRET_KEY);
+    return res.status(200).json({ token });
+  } else {
+    return res.status(401).json({ message: "Usuario y/o contraseña incorrecto." });
+  }
 });
 
 app.use("/cats", catsRouter)
@@ -36,7 +49,9 @@ app.use("/product-info", productInfoRouter);
 
 app.use("/comments", commentsRouter);
 
-app.listen(3000, () => {
-    console.log("funciona!!!!")
+app.get("/products", authMiddleware, productsController.getProducts)
+
+app.listen(port, () => {
+  console.log(`Server corriendo en http://localhost:${port}`)
 });
 
