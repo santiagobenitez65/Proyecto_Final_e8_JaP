@@ -7,13 +7,12 @@ const jwt = require("jsonwebtoken");
 const app = express();
 const port = 3000;
 
-const productsRouter = require("./routes/productsRoute");
-const catsRouter = require("./routes/catsRoute");
-const productInfoRouter = require("./routes/productInfoRoute");
-const commentsRouter = require("./routes/commentsRoute");
 const SECRET_KEY = "CLAVE-SECRETA"
 
-const productsController = require("./controllers/productsController")
+const catsRouter = require("./routes/catsRoute");
+const commentsRouter = require("./routes/commentsRoute");
+const productInfoRouter = require("./routes/productInfoRoute");
+const productsRouter = require("./routes/productsRoute");
 
 app.use(express.json());
 app.use(cors());
@@ -41,15 +40,13 @@ app.post("/login", (req, res) => {
   }
 });
 
-app.use("/cats", catsRouter)
+app.use("/cats", authMiddleware, catsRouter);
 
-app.use("/products", productsRouter);
+app.use("/products", authMiddleware, productsRouter);
 
-app.use("/product-info", productInfoRouter);
+app.use("/product-info", authMiddleware, productInfoRouter);
 
-app.use("/comments", commentsRouter);
-
-app.get("/products", authMiddleware, productsController.getProducts)
+app.use("/comments", authMiddleware, commentsRouter);
 
 app.listen(port, () => {
   console.log(`Server corriendo en http://localhost:${port}`)
