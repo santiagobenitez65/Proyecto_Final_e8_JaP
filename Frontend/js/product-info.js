@@ -3,13 +3,17 @@ let rating = 0;
 
 document.addEventListener("DOMContentLoaded", function () {
     let productID = localStorage.getItem("selectedProductId");
-    let URL = `https://localhost:3000/product-info/${productID}`;
-    let COMMENTS_URL = `https://localhost:3000/comments/${productID}`;
+    let URL = `http://localhost:3000/product-info/${productID}`;
+    let COMMENTS_URL = `http://localhost:3000/comments/${productID}`;
 
     let images = [];
     let currentIndex = 0;
 
-    fetch(URL)
+    fetch(URL, {
+        headers: {
+            "authorization": `${localStorage.getItem("token")}`
+        }
+    })
         .then(response => response.json())
         .then(data => {
             document.getElementById("product-name").textContent = data.name;
@@ -152,7 +156,11 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(error => console.error("Error al cargar info del producto:", error));
 
     /*comentarios*/
-    fetch(COMMENTS_URL)
+    fetch(COMMENTS_URL, {
+        headers: {
+            "authorization": `${localStorage.getItem("token")}`
+        }
+    })
         .then(response => response.json())
         .then(data => {
             comments = data;
