@@ -7,33 +7,31 @@ const pool = mysql.createPool({
     database: "ecommerce"
 }).promise()
 
-async function getCart(id) {
-    const [cart] = await pool.query(`SELECT * FROM Carrito WHERE id_carrito = ?`, [id]);
+export async function getCart() {
+    const [cart] = await pool.query(`SELECT * FROM Carrito WHERE id_carrito = 1`);
     return cart[0];
 }
 
 async function postCart(cart, total) {
-    return await pool.query("INSERT INTO Carrito (productos, total_pagar) VALUES (?, ?)", [cart, total])
+    return await pool.query("INSERT IGNORE INTO Carrito (id_carrito, productos, total_pagar) VALUES (?, ?, ?)", [1, cart, total])
 }
 
-async function postProductToCart(id, product) {
-    const cart = await getCart(id)
+async function deleteCart() {
+    return await pool.query("DELETE FROM Carrito WHERE id_carrito = 1");
+}
+
+export async function postProductToCart(product, total) {
+    const cart = await getCart()
     const newProducts = cart.productos + product;
-    return await pool.query(`
-        UPDATE Carrito 
-        SET productos = "${newProducts}" 
-        WHERE id_carrito = ?`, [id]);
+    return await pool.query(`UPDATE Carrito SET productos = "${newProducts}", total_pagar = ${total} WHERE id_carrito = 1`);
 }
 
-async function deleteProductFromCart(id, product) {
-    const cart = await getCart(id)
+export async function deleteProductFromCart(product, total) {
+    const cart = await getCart()
     const newProducts = cart.productos.replace(product, "");
-    return await pool.query(`
-        UPDATE Carrito 
-        SET productos = "${newProducts}" 
-        WHERE id_carrito = ?`, [id]);
+    return await pool.query(`UPDATE Carrito SET productos = "${newProducts}", total_pagar = ${total} WHERE id_carrito = 1`);
 }
 
-async function deleteCart(id) {
-    return await pool.query("DELETE FROM Carrito WHERE id_carrito = ?", [id]);
+export async function clearCart() {
+    return await pool.query(`UPDATE Carrito SET productos = "", total_pagar = 0 WHERE id_carrito = 1`)
 }
