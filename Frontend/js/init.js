@@ -1,10 +1,10 @@
-const CATEGORIES_URL = "https://localhost:3000/cats";
-const PUBLISH_PRODUCT_URL = "https://localhost:3000/sell";
-const PRODUCTS_URL = "https://localhost:3000/products/";
-const PRODUCT_INFO_URL = "https://localhost:3000/product-info/";
-const PRODUCT_INFO_COMMENTS_URL = "https://localhost:3000/comments/";
-const CART_INFO_URL = "https://localhost:3000/cart/info";
-const CART_BUY_URL = "https://localhost:3000/cart/buy";
+const CATEGORIES_URL = "http://localhost:3000/cats";
+const PUBLISH_PRODUCT_URL = "http://localhost:3000/sell";
+const PRODUCTS_URL = "http://localhost:3000/products/";
+const PRODUCT_INFO_URL = "http://localhost:3000/product-info/";
+const PRODUCT_INFO_COMMENTS_URL = "http://localhost:3000/comments/";
+const CART_INFO_URL = "http://localhost:3000/cart/info";
+const CART_BUY_URL = "http://localhost:3000/cart/buy";
 const EXT_TYPE = ".json";
 
 let showSpinner = function () {
@@ -18,7 +18,11 @@ let hideSpinner = function () {
 let getJSONData = function (url) {
   let result = {};
   showSpinner();
-  return fetch(url)
+  return fetch(url, {
+    headers: {
+      "authorization": `${localStorage.getItem("token")}`
+    }
+  })
     .then(response => {
       if (response.ok) {
         return response.json();

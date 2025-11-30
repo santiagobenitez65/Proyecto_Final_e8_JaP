@@ -1,5 +1,9 @@
 function fetchInfo(url) { //Funcion para hacer fetch
-    return fetch(url)
+    return fetch(url, {
+        headers: {
+            "authorization": `${localStorage.getItem("token")}`
+        }
+    })
         .then(response => {
             if (response.ok) {
                 return response.json();
