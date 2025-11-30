@@ -1,4 +1,30 @@
 const fs = require("fs");
+const database = require("../database");
+
+async function getCart() {
+    return new Promise((resolve, reject) => {
+
+        database.getCart()
+            .then(response => {
+                console.log(response);
+                return resolve(response.productos);
+            })
+            .catch(error => {
+                return reject(error);
+            })
+    })
+}
+
+async function postToCart(product, total) {
+    return new Promise((resolve, reject) => {
+        try {
+            database.postProductToCart(product, total)
+            return resolve()
+        } catch (error) {
+            return reject(error)
+        }
+    })
+}
 
 async function getCartInfo() {
     return new Promise((resolve, reject) => {
@@ -33,4 +59,6 @@ async function getBuyCart() {
 module.exports = {
     getCartInfo,
     getBuyCart,
+    getCart,
+    postToCart,
 }

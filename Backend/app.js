@@ -14,7 +14,7 @@ const commentsRouter = require("./routes/commentsRoute");
 const productInfoRouter = require("./routes/productInfoRoute");
 const productsRouter = require("./routes/productsRoute");
 const cartRouter = require("./routes/cartRoute");
-const sellRouter = require("./routes/sellRoute")
+const sellRouter = require("./routes/sellRoute");
 
 app.use(express.json());
 app.use(cors());
