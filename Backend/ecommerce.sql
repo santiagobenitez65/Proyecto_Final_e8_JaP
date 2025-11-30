@@ -55,8 +55,8 @@ CREATE TABLE Compra (
     total INT NOT NULL,
 
     FOREIGN KEY (id_carrito) REFERENCES Carrito(id_carrito)
-        ON DELETE SET NULL,
+        ON DELETE CASCADE,
         
    FOREIGN KEY (id_usuario) REFERENCES Usuario(id_usuario)
-   		ON DELETE SET NULL
+   		ON DELETE CASCADE
 ); 
