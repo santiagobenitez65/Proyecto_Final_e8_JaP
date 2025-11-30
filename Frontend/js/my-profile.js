@@ -62,6 +62,7 @@ document.addEventListener("DOMContentLoaded", () => {
         localStorage.removeItem("phone");
         localStorage.removeItem("profilePic");
         localStorage.removeItem("password");
+        localStorage.removeItem("token");
         window.location = "login.html";
     });
 
